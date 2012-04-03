@@ -1,6 +1,8 @@
 #ifndef ARRAY_H
 #define ARRAY_H
 
+#include "Exception.h"
+
 class Array()
 {
 	//template
@@ -35,7 +37,7 @@ public:
 	{
 	}
 
-	int  getStartIndex()
+	static int getStartIndex()
 	{
 	}
 
@@ -43,7 +45,7 @@ public:
 	{
 	}
 
-	size_t getLength()
+	static size_t getLength()
 	{
 	}
 
