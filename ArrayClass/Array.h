@@ -3,7 +3,7 @@
 
 #include "Exception.h"
 
-class Array()
+class Array
 {
 	//template
 	int * m_array;
@@ -20,7 +20,7 @@ public:
 	{
 	}
 
-	Array(Array const & copy)
+	Array(Array& copy)
 	{
 	}
 
@@ -28,7 +28,7 @@ public:
 	{
 	}
 
-	Array& operator=(Array const & rhs)
+	Array& operator=(Array& rhs)
 	{
 	}
 

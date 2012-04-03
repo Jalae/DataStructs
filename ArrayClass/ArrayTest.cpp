@@ -1,11 +1,11 @@
 
 
 #include "Array.h"
-#include <iostream.h>
+#include <iostream>
 
-using namespace std::cout;
+using std::cout;
 
-void main()
+int main()
 {
 	cout << "Creating Array with default\n";
 	Array a;
@@ -61,7 +61,7 @@ void main()
 	}
 
 	cout << "Out of Bounds Assignment\n";
-	try{c.[c.getStartIndex()+c.getLength()+5] = 5;}
+	try{c[c.getStartIndex()+c.getLength()+5] = 5;}
 	catch(Exception e){cout << e.what();}
 	
 
