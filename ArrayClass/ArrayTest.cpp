@@ -18,17 +18,19 @@ int main()
 	{
 		cout << e.what();
 	}
-	cout << "Increase the length to 5\n";
+	cout << "\nIncrease the length to 5 and base to 0\n";
 	a.setLength(5);
-	cout << "Access all values, expect 0 0 0 0 0 \n";
+	a.setStartIndex(0);
+	cout << "Access all values, expect whatever\n";
 	for(size_t i(0); i < a.getLength(); i++)
 	{
-		cout << a[i] << " ";
+		cout << "a[" << i << "] = " << a[i] << "\n";
 	}
 	cout << "Assign 1 2 3 4 5 to a\n";
 	for(size_t i(0); i < a.getLength(); i++)
 	{
 		a[i] = i + 1;
+		cout << "a[" << i << "] = " << a[i] << "\n";
 	}
 
 	cout << "Change base to -10, access via -10 -> -5:\n";
@@ -60,10 +62,13 @@ int main()
 		cout << "c[" << i << "]:" << c[i] << "\n";
 	}
 
-	cout << "Out of Bounds Assignment\n";
+	cout << "Out of Bounds Assignment Greater\n";
 	try{c[c.getStartIndex()+c.getLength()+5] = 5;}
 	catch(Exception e){cout << e.what();}
+	cout << "\nOut of Bounds Assignment Smaller\n";
+	try{c[c.getStartIndex()-5] = 5;}
+	catch(Exception e){cout << e.what();}
 	
-
+	std::cin.ignore();
 }
 
