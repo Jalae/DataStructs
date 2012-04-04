@@ -7,15 +7,15 @@ class Exception
 {
 	char * m_msg;
 public:
-	Exception(){}
-	Exception(char * const msg){}
-	Exception(Exception & e){}
-	~Exception(){}
-	Exception & operator=(Exception& rhs){}
-	static char * const getMessage(){}
-	void setMessage(char* const msg){}
-	static char* const what(){}
+	Exception();
+	Exception(char * const msg);
+	Exception(Exception & e);
+	~Exception();
+	Exception & operator=(Exception& rhs);
+	char * const getMessage() const;
+	void setMessage(char* const msg);
+	char* const what() const;
 };
-	ostream & operator<<(ostream & stream, Exception & except){}
+	ostream & operator<<(ostream & stream, Exception & except);
 
 #endif
