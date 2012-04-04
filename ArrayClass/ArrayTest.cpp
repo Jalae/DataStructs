@@ -1,4 +1,4 @@
-#if defined _WIN32 || defined __CYGWIN__
+#if defined _WIN32
 	#define _CRTDBG_MAP_ALLOC
 	#include <stdlib.h>
 	#include <crtdbg.h>
@@ -16,8 +16,9 @@ using std::cout;
 int main()
 {
 	{
+		typedef Array<int> int_Array;
 		cout << "Creating Array with default\n";
-		Array a;
+		int_Array a;
 		cout << "Try to access an element, expect exception:";
 		try
 		{
@@ -50,7 +51,7 @@ int main()
 		}
 	
 		cout << "Construct b with length of 10, and base 2\n";
-		Array b(10,2);
+		int_Array b(10,2);
 		cout << "Set to 2 3 4 5 6 7 8 9 10 11\n";
 		for(int i(2); i < (b.getLength() + 2) ; i++)
 		{
@@ -58,7 +59,7 @@ int main()
 			cout << "b[" << i << "]:" << b[i] << "\n";
 		}
 		cout << "Construct c by coping b\n";
-		Array c(b);
+		int_Array c(b);
 		for (int i(c.getStartIndex()); i < (c.getLength()+c.getStartIndex()); i++)
 		{
 			cout << "c[" << i << "]:" << c[i] << "\n";

@@ -1,4 +1,4 @@
-#if defined _WIN32 || defined __CYGWIN__
+#if defined _WIN32
 	#define _CRTDBG_MAP_ALLOC
 	#include <stdlib.h>
 	#include <crtdbg.h>

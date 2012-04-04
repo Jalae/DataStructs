@@ -1,4 +1,4 @@
-#if defined _WIN32 || defined __CYGWIN__
+#if defined _WIN32
 	#define _CRTDBG_MAP_ALLOC
 	#include <stdlib.h>
 	#include <crtdbg.h>
@@ -13,10 +13,10 @@
 
 #include "Exception.h"
 
+template <typename T>
 class Array
 {
-	//template
-	int * m_array;
+	T * m_array;
 
 	size_t m_length;
 	int m_start_index;
@@ -31,9 +31,9 @@ public:
 								m_length( (length >= 0) ? length : 0),
 								m_start_index(start_index)
 	{
-		//template
-		m_array = new int[length];
+		m_array = new T[length];
 	}
+
 
 	Array(Array& copy):
 						m_array(nullptr),
@@ -58,7 +58,7 @@ public:
 				delete[] m_array;
 			m_length = rhs.m_length;
 			m_start_index = rhs.m_start_index;
-			m_array = new int[m_length];
+			m_array = new T[m_length];
 			for(size_t i(0); i < m_length; i++)
 			{
 				m_array[i] = rhs.m_array[i];
@@ -69,7 +69,7 @@ public:
 	}
 
 	//template
-	int & operator[](int const index)
+	T & operator[](int const index)
 	{
 		int trueindex = index - m_start_index;
 		if(trueindex >= (int) m_length)
@@ -110,8 +110,7 @@ public:
 		//getting larger
 		if(m_length < length)
 		{
-			//template
-			int* temp = new int[length];
+			int* temp = new T[length];
 			if(m_array)
 			{
 				for(size_t i(0); i < m_length; i++)
