@@ -7,7 +7,7 @@ size_t k_strlen(char* str)
 	return i;
 }
 
-void k_strcpy(char* src, char* des)
+void k_strcpy(char* src, char* & des)
 {
 	if(src==des)
 		return;
