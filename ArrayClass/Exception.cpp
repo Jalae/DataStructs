@@ -19,7 +19,9 @@ Exception::Exception(Exception & e):m_msg(nullptr)
 
 Exception::~Exception()
 {
-	delete[] m_msg;
+	if(m_msg)
+		delete[] m_msg;
+	m_msg = nullptr;
 }
 
 Exception & Exception::operator=(Exception& rhs)
