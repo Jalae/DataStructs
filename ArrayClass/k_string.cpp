@@ -1,3 +1,16 @@
+#if defined _WIN32 || defined __CYGWIN__
+	#define _CRTDBG_MAP_ALLOC
+	#include <stdlib.h>
+	#include <crtdbg.h>
+#define MEMDUMP _CrtDumpMemoryLeaks();
+#else
+#define MEMDUMP ;
+#endif
+
+
+
+
+
 #include "k_string.h"
 //move this to its own file
 size_t k_strlen(char* str)

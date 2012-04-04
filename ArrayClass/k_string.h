@@ -1,3 +1,13 @@
+#if defined _WIN32 || defined __CYGWIN__
+	#define _CRTDBG_MAP_ALLOC
+	#include <stdlib.h>
+	#include <crtdbg.h>
+#define MEMDUMP _CrtDumpMemoryLeaks();
+#else
+#define MEMDUMP ;
+#endif
+
+
 #ifndef K_STRING_
 #define K_STRING_
 #include <iostream>
