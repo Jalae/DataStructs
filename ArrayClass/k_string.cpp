@@ -12,7 +12,8 @@
 
 
 #include "k_string.h"
-//move this to its own file
+
+
 size_t k_strlen(char* str)
 {
 	size_t i(0);
@@ -32,4 +33,13 @@ void k_strcpy(char* src, char* & des)
 	{
 		des[i] = src[i];
 	}
+}
+
+
+bool k_strcmp(char* src, char* des)
+{
+	size_t i(0);
+	while(src[i]==des[i] && src[i])
+		i++;
+	return src[i]==des[i];
 }

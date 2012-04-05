@@ -1,3 +1,6 @@
+
+
+
 #if defined _WIN32
 	#define _CRTDBG_MAP_ALLOC
 	#include <stdlib.h>
@@ -10,76 +13,63 @@
 
 #include "Array.h"
 #include <iostream>
-
+#include "ArrayTestFunc.h"
 using std::cout;
 
 int main()
 {
 	{
-		typedef Array<int> int_Array;
-		cout << "Creating Array with default\n";
-		int_Array a;
-		cout << "Try to access an element, expect exception:";
-		try
-		{
-			a[0];
-		}
-		catch(Exception e)
-		{
-			cout << e.what();
-		}
-		cout << "\nIncrease the length to 5 and base to 0\n";
-		a.setLength(5);
-		a.setStartIndex(0);
-		cout << "Access all values, expect whatever\n";
-		for(size_t i(0); i < a.getLength(); i++)
-		{
-			cout << "a[" << i << "] = " << a[i] << "\n";
-		}
-		cout << "Assign 1 2 3 4 5 to a\n";
-		for(size_t i(0); i < a.getLength(); i++)
-		{
-			a[i] = i + 1;
-			cout << "a[" << i << "] = " << a[i] << "\n";
-		}
+		cout << "Testing Accessing of no element(BASIC):";
+		cout << (ArrayTest_AccessNoElement<int>()?"PASSED\n":"FAILED\n");
+		cout << "Testing Accessing of no element(ADVANCED):";
+		cout << (ArrayTest_AccessNoElement<Array<int>>()?"PASSED\n":"FAILED\n");
 
-		cout << "Change base to -10, access via -10 -> -5:\n";
-		a.setStartIndex(-10);
-		for(int i(-10); i < (-10 + a.getLength()); i++)
-		{
-			cout << "a[" << i << "] = " << a[i] << "\n";
-		}
-	
-		cout << "Construct b with length of 10, and base 2\n";
-		int_Array b(10,2);
-		cout << "Set to 2 3 4 5 6 7 8 9 10 11\n";
-		for(int i(2); i < (b.getLength() + 2) ; i++)
-		{
-			b[i] = i;
-			cout << "b[" << i << "]:" << b[i] << "\n";
-		}
-		cout << "Construct c by coping b\n";
-		int_Array c(b);
-		for (int i(c.getStartIndex()); i < (c.getLength()+c.getStartIndex()); i++)
-		{
-			cout << "c[" << i << "]:" << c[i] << "\n";
-		}
+		cout << "Testing Increase Length(BASIC):";
+		cout << (ArrayTest_IncreaseLength<int>()?"PASSED\n":"FAILED\n");
+		cout << "Testing Increase Length(ADVANCED):";
+		cout << (ArrayTest_IncreaseLength<Array<int>>()?"PASSED\n":"FAILED\n");
 
-		cout << "Lower the size of c\n";
-		c.setLength(c.getLength()-5);
-		for (int i(c.getStartIndex()); i < (c.getLength()+c.getStartIndex()); i++)
-		{
-			cout << "c[" << i << "]:" << c[i] << "\n";
-		}
+		cout << "Testing Decrease Length(BASIC):";
+		cout << (ArrayTest_DecreaseLength<int>()?"PASSED\n":"FAILED\n");
+		cout << "Testing Decrease Length(ADVANCED):";
+		cout << (ArrayTest_DecreaseLength<Array<int>>()?"PASSED\n":"FAILED\n");
 
-		cout << "Out of Bounds Assignment Greater\n";
-		try{c[c.getStartIndex()+c.getLength()+5] = 5;}
-		catch(Exception e){cout << e.what();}
-		cout << "\nOut of Bounds Assignment Smaller\n";
-		try{c[c.getStartIndex()-5] = 5;}
-		catch(Exception e){cout << e.what();}
-	
-	} //scope to correctly kill my arrays
+		cout << "Testing Assignment(BASIC):";
+		cout << (ArrayTest_Assignment<int>(5, 10)?"PASSED\n":"FAILED\n");
+		cout << "Testing Assignment(ADVANCED):";
+		cout << (ArrayTest_Assignment<Array<int>>(Array<int>(5), 10)?"PASSED\n":"FAILED\n");
+		
+		cout << "Testing Change Base Higher(BASIC):";
+		cout << (ArrayTest_ChangeBase<int>(10)?"PASSED\n":"FAILED\n");
+		cout << "Testing Change Base Higher(ADVANCED):";
+		cout << (ArrayTest_ChangeBase<Array<int>>(10)?"PASSED\n":"FAILED\n");
+
+		cout << "Testing Change Base Lower(BASIC):";
+		cout << (ArrayTest_ChangeBase<int>(-10)?"PASSED\n":"FAILED\n");
+		cout << "Testing Change Base Lower(ADVANCED):";
+		cout << (ArrayTest_ChangeBase<Array<int>>(-10)?"PASSED\n":"FAILED\n");
+
+		cout << "Testing Copy Constructor(BASIC):";
+		cout << (ArrayTest_CopyConstructor<int>(Array<int>(1,0))?"PASSED\n":"FAILED\n");
+		cout << "Testing Copy Constructor(ADVANCED):";
+		cout << (ArrayTest_CopyConstructor<Array<int>>(Array<Array<int>>(1,0))?"PASSED\n":"FAILED\n");
+
+		cout << "Testing Out of Bounds, Higher(BASIC):";
+		cout << (ArrayTest_OutofBoundsAssignment<int>(true)?"PASSED\n":"FAILED\n");
+		cout << "Testing Out of Bounds, Higher(ADVANCED):";
+		cout << (ArrayTest_OutofBoundsAssignment<Array<int>>(true)?"PASSED\n":"FAILED\n");
+
+		cout << "Testing Out of Bounds, Lower(BASIC):";
+		cout << (ArrayTest_OutofBoundsAssignment<int>(false)?"PASSED\n":"FAILED\n");
+		cout << "Testing Out of Bounds, Lower(ADVANCED):";
+		cout << (ArrayTest_OutofBoundsAssignment<Array<int>>(false)?"PASSED\n":"FAILED\n");
+
+		cout << "Testing Self Assignment(BASIC):";
+		cout << (ArrayTest_SelfAssignment<int>()?"PASSED\n":"FAILED\n");
+		cout << "Testing Self Assignment(ADVANCED):";
+		cout << (ArrayTest_SelfAssignment<Array<int>>()?"PASSED\n":"FAILED\n");
+
+	}
 	std::cin.ignore();
 	MEMDUMP
 }

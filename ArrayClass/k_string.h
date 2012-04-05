@@ -16,4 +16,6 @@ size_t k_strlen(char* str);
 
 void k_strcpy(char* src, char* & des);
 
+bool k_strcmp(char* src, char* des);
+
 #endif

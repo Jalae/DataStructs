@@ -1,4 +1,4 @@
-#if defined _WIN32
+#if defined _WIN32 && defined _DEBUG
 	#define _CRTDBG_MAP_ALLOC
 	#include <stdlib.h>
 	#include <crtdbg.h>
@@ -35,7 +35,7 @@ public:
 	}
 
 
-	Array(Array& copy):
+	Array(Array const & copy):
 						m_array(nullptr),
 						m_length(copy.m_length),
 						m_start_index(copy.m_start_index)
@@ -50,7 +50,7 @@ public:
 		m_array = nullptr;
 	}
 
-	Array& operator=(Array& rhs)
+	Array& operator=(Array const & rhs)
 	{
 		if(this != &rhs)
 		{
@@ -70,6 +70,22 @@ public:
 
 	//template
 	T & operator[](int const index)
+	{
+		int trueindex = index - m_start_index;
+		if(trueindex >= (int) m_length)
+		{
+			throw Exception("Index out of bounds: Greater");
+			
+		}
+		if(trueindex < 0)
+		{
+			throw Exception("Index out of bounds: Lower");
+			
+		}
+		return m_array[trueindex];
+	}
+
+	T const & operator[](int const index) const
 	{
 		int trueindex = index - m_start_index;
 		if(trueindex >= (int) m_length)
@@ -110,7 +126,7 @@ public:
 		//getting larger
 		if(m_length < length)
 		{
-			int* temp = new T[length];
+			T * temp = new T[length];
 			if(m_array)
 			{
 				for(size_t i(0); i < m_length; i++)
@@ -123,5 +139,17 @@ public:
 	}
 
 };
+template <typename T>
+bool operator==(Array<T> const & lhs, Array<T> const & rhs)
+{
+	bool same = true;
+	same = (lhs.getLength() == rhs.getLength());
+	same = (same && (lhs.getStartIndex() == rhs.getStartIndex()));
+	for(int i(lhs.getStartIndex()); same && (i < (lhs.getStartIndex() + lhs.getLength()) ) ; i++)
+	{//this is so we can have Arrays of Arrays of Arrays of ...
+		same  == same && (lhs[i] == rhs[i]);
+	}
+	return same;
+}
 
 #endif
