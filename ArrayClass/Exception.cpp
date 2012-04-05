@@ -1,3 +1,10 @@
+/******************************************************************************
+*Author:		Kehnin Dyer
+*File name:		Exception.h
+*Date Created:	2012/04/02
+*Modifed:		2012/04/04 - functionally complete
+******************************************************************************/
+
 #if defined _WIN32
 	#define _CRTDBG_MAP_ALLOC
 	#include <stdlib.h>
@@ -7,17 +14,11 @@
 #define MEMDUMP ;
 #endif
 
-
-
-
 #include "Exception.h"
 #include "k_string.h"
 
-
-
 Exception::Exception():m_msg(nullptr)
-{
-}
+{}
 
 Exception::Exception(char * const msg):m_msg(nullptr)
 {
@@ -58,6 +59,14 @@ char* const Exception::what() const
 	return m_msg;
 }
 
+/******************************************************************************
+*Purpose:	i guess it writes the exception to the given stream.
+*
+*Entry:		except is inited, stream is open and good
+*
+*Exit:		gives you your stream back.
+*
+******************************************************************************/
 ostream & operator<<(ostream & stream, Exception & except)
 {
 	return stream << except.what();

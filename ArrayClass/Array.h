@@ -1,3 +1,11 @@
+/******************************************************************************
+*Author:		Kehnin Dyer
+*File name:		Array.h
+*Date Created:	2012/04/02
+*Modifed:		2012/04/04 - functionally complete
+*					:see git commits for more details
+******************************************************************************/
+
 #if defined _WIN32 && defined _DEBUG
 	#define _CRTDBG_MAP_ALLOC
 	#include <stdlib.h>
@@ -13,6 +21,37 @@
 
 #include "Exception.h"
 
+
+
+/******************************************************************************
+*Class:		Array
+*
+*Purpose:	A one dimentional array, with flexible base.
+*
+*Functions:
+*		Array()
+*			default constructor...
+*		Array(size_t const length, int const start_index = 0)
+*			sets the length and start index based on the passed in params
+*		Array(Array const & copy)
+*			copies the passed in Array into the new instance, uses op=
+*		~Array()
+*			deletes everything in the Array
+*		Array& operator=(Array const & rhs)
+*			Deep copies the values from rhs to this
+*		T & operator[](int const index)
+*			access the lhs element for writing
+*		T const & operator[](int const index) const
+*			access the lhs element for reading
+*		int getStartIndex() const
+*			returns the starting index
+*		void setStartIndex(int start_index)
+*			sets the starting index
+*		size_t getLength() const
+*			returns the length
+*		void setLength(size_t length)
+*			sets the length
+******************************************************************************/
 template <typename T>
 class Array
 {
@@ -34,13 +73,11 @@ public:
 		m_array = new T[length];
 	}
 
-
 	Array(Array const & copy):
 						m_array(nullptr),
 						m_length(copy.m_length),
 						m_start_index(copy.m_start_index)
 	{
-
 		*this = copy;
 	}
 
@@ -68,7 +105,6 @@ public:
 		return *this;
 	}
 
-	//template
 	T & operator[](int const index)
 	{
 		int trueindex = index - m_start_index;
@@ -137,8 +173,18 @@ public:
 		}
 		m_length = length;
 	}
-
 };
+
+/******************************************************************************
+*Purpose:	check two arrays of the same type and checks them for being
+*			"the same" ie they contain all the same info. This is not a ===.
+*
+*Entry:		um... you break it you buy it.
+*
+*Exit:		returns true if all elements are equivilant, as is the sizes, and 
+*			starting index. Nothing can be different but pointer.
+*
+******************************************************************************/
 template <typename T>
 bool operator==(Array<T> const & lhs, Array<T> const & rhs)
 {

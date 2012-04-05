@@ -1,5 +1,18 @@
-
-
+/******************************************************************************
+*Author:		Kehnin Dyer
+*File name:		ArrayTest.cpp
+*Date Created:	2012/04/02
+*Modifed:		2012/04/04 - changed from linear tests to functional
+*
+*Overview:		This assinment is to make an Array class for use in other labs
+*				and assignments. This program runs all the tests nessicary to 
+*				show that this class works as required.
+*
+*Input:			None
+*
+*Output:		Tells the user what test is run and whether that test passed 
+*				or if it failed,
+******************************************************************************/
 
 #if defined _WIN32
 	#define _CRTDBG_MAP_ALLOC

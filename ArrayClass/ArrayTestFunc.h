@@ -1,12 +1,9 @@
-#if defined _WIN32 && defined _DEBUG
-	#define _CRTDBG_MAP_ALLOC
-	#include <stdlib.h>
-	#include <crtdbg.h>
-#define MEMDUMP _CrtDumpMemoryLeaks();
-#else
-#define MEMDUMP ;
-#endif
-
+/******************************************************************************
+*Author:		Kehnin Dyer
+*File name:		ArrayTestFunc.h
+*Date Created:	2012/04/02
+*Modifed:		2012/04/04 - functionally complete
+******************************************************************************/
 
 #ifndef ARRAYTESTFUNC_H_
 #define ARRAYTESTFUNC_H_
