@@ -17,7 +17,6 @@ class Row
 	Array2D& const m_array2D;
 	size_t const m_row;
 
-
 	Row()
 	{}
 	Row(Row& const copy)
@@ -26,19 +25,20 @@ class Row
 	{}
 
 public:
-	Row(Array2D& const array, size_t row)
-	{
-		
-	}
+	Row(Array2D& const array, size_t row):m_array2D(array), m_row(row)
+	{}
 
-	T& operator[](size_t column)
+	~Row()
+	{}
+
+	T& operator[](size_t const column)
 	{
-		
+		return m_array2D.Select(m_row, column);
 	}
 
 	T& const operator[](size_t column) const
 	{
-		
+		return m_array2D.Select(m_row, column);
 	}
 	
 };
