@@ -11,6 +11,30 @@
 template <typename T>
 class Array2D;
 
+
+/******************************************************************************
+*Class:		Array2D
+*
+*Purpose:	A 2 dimentional array for anything.
+*
+*Functions:
+*			Row()
+*				don't use it
+*			Row(Row& const copy)
+*				don't use it
+*			Row& operator=(Row& const rhs)
+*				don't use it
+*			Row(Array2D& const array, size_t row)
+*				the only constuctor you will ever need. Stores row and a ref
+*				to the Array2D that made it.
+*			~Row()
+*				default destructor
+*			T& operator[](size_t column)
+*				calls the select function of the Array2d that make the Row, and
+*				returns the value. for writing
+*			T& const operator[](size_t column) const
+*				same as the not const version, but for reading only.
+******************************************************************************/
 template<typename T>
 class Row
 {
