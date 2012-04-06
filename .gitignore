@@ -27,3 +27,11 @@ obj/
 [Rr]elease*/
 _ReSharper*/
 [Tt]est[Rr]esult*
+
+ipch/*
+*.sdf
+*.vcxproj*
+*.opensdf
+*.swp
+*.sln
+*.sln
