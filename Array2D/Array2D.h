@@ -4,12 +4,12 @@
 *Date Created:	2012/05/02
 *Modifed:		
 ******************************************************************************/
+
 #ifndef ARRAY2D_H_
 #define ARRAY2D_H_
 
 #include "Array.h"
-template <typename T>
-class Row;
+
 
 /******************************************************************************
 *Class:		Array2D
