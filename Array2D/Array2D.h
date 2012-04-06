@@ -114,11 +114,27 @@ public:
 
 	T& Select(size_t const row, size_t const col)
 	{
+		if(col > m_col)
+		{
+			throw(Exception("Invalid Column index"));
+		}
+		if(row > m_row)
+		{
+			throw(Exception("Invalid Row index"));
+		}
 		return m_array[(row*m_col)+col];
 	}
 
 	T& const Select(size_t const row, size_t const col) const
 	{
+		if(col > m_col)
+		{
+			throw(Exception("Invalid Column index"));
+		}
+		if(row > m_row)
+		{
+			throw(Exception("Invalid Row index"));
+		}
 		return m_array[(row*m_col)+col];
 	}
 };
