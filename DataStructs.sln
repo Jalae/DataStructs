@@ -8,6 +8,13 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ConsoleTestDriver", "Consol
 		{3D9AD48B-1100-43EC-B2AF-EE37D078180C} = {3D9AD48B-1100-43EC-B2AF-EE37D078180C}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ArrayClass", "ArrayClass\ArrayClass.vcxproj", "{2F51EAA0-13AB-49F9-9DC5-64B18811F40F}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Array2D", "Array2D\Array2D.vcxproj", "{4F4F6BC8-5892-4A8F-BB86-C57778D42045}"
+	ProjectSection(ProjectDependencies) = postProject
+		{2F51EAA0-13AB-49F9-9DC5-64B18811F40F} = {2F51EAA0-13AB-49F9-9DC5-64B18811F40F}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -22,6 +29,14 @@ Global
 		{9F170FB8-8702-48B3-A339-6AC5E389714C}.Debug|Win32.Build.0 = Debug|Win32
 		{9F170FB8-8702-48B3-A339-6AC5E389714C}.Release|Win32.ActiveCfg = Release|Win32
 		{9F170FB8-8702-48B3-A339-6AC5E389714C}.Release|Win32.Build.0 = Release|Win32
+		{2F51EAA0-13AB-49F9-9DC5-64B18811F40F}.Debug|Win32.ActiveCfg = Debug|Win32
+		{2F51EAA0-13AB-49F9-9DC5-64B18811F40F}.Debug|Win32.Build.0 = Debug|Win32
+		{2F51EAA0-13AB-49F9-9DC5-64B18811F40F}.Release|Win32.ActiveCfg = Release|Win32
+		{2F51EAA0-13AB-49F9-9DC5-64B18811F40F}.Release|Win32.Build.0 = Release|Win32
+		{4F4F6BC8-5892-4A8F-BB86-C57778D42045}.Debug|Win32.ActiveCfg = Debug|Win32
+		{4F4F6BC8-5892-4A8F-BB86-C57778D42045}.Debug|Win32.Build.0 = Debug|Win32
+		{4F4F6BC8-5892-4A8F-BB86-C57778D42045}.Release|Win32.ActiveCfg = Release|Win32
+		{4F4F6BC8-5892-4A8F-BB86-C57778D42045}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
