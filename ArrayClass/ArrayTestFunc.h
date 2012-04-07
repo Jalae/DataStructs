@@ -9,7 +9,7 @@
 #define ARRAYTESTFUNC_H_
 
 #include "Array.h"
-#include "k_string.h"
+#include "../Utils/k_string.h"
 
 template<typename T>
 bool ArrayTest_AccessNoElement()

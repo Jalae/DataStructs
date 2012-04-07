@@ -3,6 +3,7 @@
 *File name:		Exception.h
 *Date Created:	2012/04/02
 *Modifed:		2012/04/04 - functionally complete
+*				2012/04/06 - moved k_string to a seperate project
 ******************************************************************************/
 
 #if defined _WIN32
@@ -15,7 +16,7 @@
 #endif
 
 #include "Exception.h"
-#include "k_string.h"
+#include "../Utils/k_string.h"
 
 Exception::Exception():m_msg(nullptr)
 {}
