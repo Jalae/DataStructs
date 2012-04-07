@@ -111,12 +111,10 @@ public:
 		if(trueindex >= (int) m_length)
 		{
 			throw Exception("Index out of bounds: Greater");
-			
 		}
 		if(trueindex < 0)
 		{
-			throw Exception("Index out of bounds: Lower");
-			
+			throw Exception("Index out of bounds: Lower");	
 		}
 		return m_array[trueindex];
 	}
