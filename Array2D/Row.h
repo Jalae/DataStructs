@@ -8,6 +8,8 @@
 #ifndef ROW_H_
 #define ROW_H_
 
+#include<stdlib.h>
+
 template <typename T>
 class Array2D;
 
@@ -38,30 +40,33 @@ class Array2D;
 template<typename T>
 class Row
 {
-	Array2D& const m_array2D;
+	Array2D<T> & m_array2D;
 	size_t const m_row;
 
 	Row()
 	{}
-	Row(Row& const copy)
-	{}
+
 	Row& operator=(Row& const rhs)
 	{}
 
 public:
-	Row(Array2D& const array, size_t row):m_array2D(array), m_row(row)
+	Row(Array2D<T> & array, size_t row):m_array2D(array), m_row(row)
+	{}
+
+	Row(Row const & copy):m_array2D(copy.m_array2D), m_row(copy.m_row)
 	{}
 
 	~Row()
 	{}
 
-	T& operator[](size_t const column)
+	T & operator[](size_t const column)
 	{
 		return m_array2D.Select(m_row, column);
 	}
 
-	T& const operator[](size_t column) const
+	T const & operator[](size_t column) const
 	{
+		//Array2D<T> const temp = (const_cast<Array2D<T> &>(m_array2D));
 		return m_array2D.Select(m_row, column);
 	}
 	

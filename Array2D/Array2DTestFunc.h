@@ -1,23 +1,23 @@
 /******************************************************************************
 *Author:		Kehnin Dyer
-*File name:		ArrayTestFunc.h
-*Date Created:	2012/04/02
-*Modifed:		2012/04/04 - functionally complete
+*File name:		Array2DTestFunc.h
+*Date Created:	2012/04/06
+*Modifed:		2012/04/06
 ******************************************************************************/
 
-#ifndef ARRAYTESTFUNC_H_
-#define ARRAYTESTFUNC_H_
+#ifndef ARRAY2DTESTFUNC_H_
+#define ARRAY2DTESTFUNC_H_
 
-#include "Array.h"
-#include "k_string.h"
+#include "../Utils/k_string.h"
+#include "Array2d.h"
 
 template<typename T>
-bool ArrayTest_AccessNoElement()
+bool Array2DTest_AccessNoElement()
 {
-	Array<T> a;
+	Array2D<T> a;
 	try
 	{
-		a[0];
+		a[0][0];
 	}
 	catch(Exception e)
 	{
@@ -27,92 +27,118 @@ bool ArrayTest_AccessNoElement()
 }
 
 template<typename T>
-bool ArrayTest_IncreaseLength()
+bool Array2DTest_IncreaseRow()
 {
-	Array<T> a;
-	a.setLength(5);
-	return a.getLength() == 5;
+	Array2D<T> a;
+	a.setRow(5);
+	return a.getRow() == 5;
 }
 
 template<typename T>
-bool ArrayTest_DecreaseLength()
+bool Array2DTest_DecreaseRow()
 {
-	Array<T> a(10);
-	a.setLength(5);
-	return a.getLength() == 5;
+	Array2D<T> a(10,1);
+	a.setRow(5);
+	return a.getRow() == 5;
 }
 
 template<typename T>
-bool ArrayTest_Assignment(T const & instance, size_t size)
+bool Array2DTest_IncreaseColumn()
+{
+	Array2D<T> a;
+	a.setColumn(5);
+	return a.getColumn() == 5;
+}
+
+template<typename T>
+bool Array2DTest_DecreaseColumn()
+{
+	Array2D<T> a(1,10);
+	a.setColumn(5);
+	return a.getColumn() == 5;
+}
+
+template<typename T>
+bool Array2DTest_Assignment(T const & instance, size_t row, size_t col)
 {
 	bool Passed = true;
-	Array<T> a(size);
-	for(size_t i(0); i < a.getLength(); i++)
-	{
-		a[i] = instance;
-	}
+	Array2D<T> a(row, col);
+	for(size_t i(0); i < a.getRow(); i++)
+		for (size_t j(0); j < a.getColumn(); j++)
+			a[i][j] = instance;
 	size_t len(0);
-	for(len; len < a.getLength() && Passed; len++)
-	{
-		Passed = a[len] == instance;
-	}
-	return Passed && (len == size);
+	for(size_t i(0); i < a.getRow() && Passed; i++)
+		for(size_t j(0); j < a.getColumn() && Passed; len++, j++ )
+			Passed = a[i][j] == instance;
+	return Passed && (len == (row*col));
 }
 
 template<typename T>
-bool ArrayTest_ChangeBase(int b)
+bool Array2DTest_AssignFromConst(T const & instance)
 {
-	Array<T> a(5,0);
-	a.setStartIndex(b);
-	return a.getStartIndex() == b;
+	Array2D<T> a(5, 5);
+	for(size_t i(0); i < 5; i++)
+		for(size_t j(0); j < 5; j++)
+			a[i][j] = instance;
+	//B will be a read only copy
+	Array2D<T> const B(a);
+	bool passed(true);
+	for(size_t i(0); (i < 5) && passed; i++)
+		for(size_t j(0); (j < 5) && passed; j++)
+			passed = instance == B[i][j];
+	
+	return passed;
+
 }
 
+
 template<typename T>
-bool ArrayTest_CopyConstructor(Array<T> const & instance)
+bool Array2DTest_CopyConstructor(Array2D<T> const & instance)
 {
-	Array<T> a(instance);
-	bool pass =		(a.getLength() == instance.getLength()) 
-				 && (a.getStartIndex() == instance.getStartIndex()) 
+	Array2D<T> a(instance);
+	bool pass =		(a.getRow() == instance.getRow())
+				 && (a.getColumn() == instance.getColumn())
 				 && (&a != &instance);
-	a.setLength(instance.getLength()+5);
-	pass =  pass && (a.getLength() == (instance.getLength() + 5) );
+	a.setRow(instance.getRow()+5);
+	pass =  pass && (a.getRow() == (instance.getRow() + 5) );
 	return pass;
 }
 
 template<typename T>
-bool ArrayTest_OutofBoundsAssignment(bool higher)
+bool Array2DTest_OutofBoundsAssignmentRow()
 {
-	Array<T> a(5);
-	if(higher)
+	Array2D<T> a(5, 5);
+	try
 	{
-		try
-		{
-			a[a.getLength()+1];
-		}
-		catch(Exception e)
-		{
-			return k_strcmp(e.what(), "Index out of bounds: Greater");
-		}
+		a[a.getRow()+1] [1];
 	}
-	else
+	catch(Exception e)
 	{
-		try
-		{
-			a[a.getStartIndex()-1];
-		}
-		catch(Exception e)
-		{
-			return k_strcmp(e.what(), "Index out of bounds: Lower");
-		}
+	 return k_strcmp(e.what(),"Invalid Row index");
 	}
-	//what...
 	return false;
 }
 
 template<typename T>
-bool ArrayTest_SelfAssignment()
+bool Array2DTest_OutofBoundsAssignmentColumn()
 {
-	Array<T> a(5);
+	Array2D<T> a(5, 5);
+	try
+	{
+		a[1][a.getColumn()+1];
+	}
+	catch(Exception e)
+	{
+	 return k_strcmp(e.what(),"Invalid Column index");
+	}
+	return false;
+}
+
+
+template<typename T>
+bool Array2DTest_SelfAssignment()
+{
+	Array2D<T> a(5,1);
 	try
 	{
 		a = a;
