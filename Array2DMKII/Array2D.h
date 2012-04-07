@@ -1,16 +1,27 @@
 /******************************************************************************
 *Author:		Kehnin Dyer
 *File name:		Array2D.h
-*Date Created:	2012/05/02
-*Modifed:		
+*Date Created:	2012/04/06
+*Modifed:		2012/04/07 - refactored to use T*, all other files unmodified
 ******************************************************************************/
+#if defined _WIN32 && defined _DEBUG
+	#define _CRTDBG_MAP_ALLOC
+	#include <stdlib.h>
+	#include <crtdbg.h>
+#define MEMDUMP _CrtDumpMemoryLeaks();
+#else
+#define MEMDUMP ;
+#endif
+
+
 
 #ifndef ARRAY2D_MKII_H_
 #define ARRAY2D_MKII_H_
 
 
 #include "Row.h"
-
+#include "../Utils/k_string.h"
+#include "../ArrayClass/Exception.h"
 
 /******************************************************************************
 *Class:		Array2D
@@ -49,7 +60,7 @@
 template <typename T>
 class Array2D
 {
-	char* m_array;
+	T* m_array;
 	size_t m_row;
 	size_t m_col;
 public:
@@ -60,7 +71,7 @@ public:
 	{
 		int len = row*col;
 		if (len)
-			m_array = new char[row*col];
+			m_array = new T[row*col];
 	}
 
 	Array2D(Array2D const & copy):
@@ -68,22 +79,30 @@ public:
 						m_row(copy.getRow()),
 						m_col(copy.getColumn())
 	{
-
+		*this = copy;
 	}
 
 	~Array2D()
-	{}//i have no mess to cleanup.
+	{
+		delete[] m_array;
+		m_array = nullptr;
+		m_row = 0;
+		m_col = 0;
+	}
 
 	Array2D & operator=(Array2D const & rhs)
-// i want to call 'rhs' 'that', and it to be a pointer.
-//so i can type if(this!=that)
-	{
-	//this doesn't make a bit of difference guys... the balls are inert
+	{// i technicly don't need that check...
 		if(this != &rhs)
 		{
 			m_col = rhs.m_col;
 			m_row = rhs.m_row;
-			m_array = rhs.m_array;
+			T* temp;
+			temp = new T[rhs.m_row*rhs.m_col+1];
+			delete[] m_array;
+			for(size_t i(0); i < rhs.m_row; i++)
+				for(size_t j(0); j < rhs.m_col; j++)
+					temp[(i*m_col)+j] = rhs[i][j];
+			m_array = temp;
 		}
 		return *this;
 	}
@@ -120,13 +139,20 @@ public:
 
 	T & Select(size_t const row, size_t const col)
 	{
-		if(col > m_col)
+		if(col >= m_col)
 		{
 			throw(Exception("Invalid Column index"));
 		}
-		if(row > m_row)
+		if(row >= m_row)
 		{
 			throw(Exception("Invalid Row index"));
+		}
+		size_t index = (row*m_col)+col;
+		if(index >= m_row*m_col)
+		{		//Array handled this before. this only really matters
+				//when the user tries to fix things incorrectly from the
+				//previous throws.
+			throw(Exception("Array Index Out of Bounds"));
 		}
 		return m_array[(row*m_col)+col];
 	}
@@ -140,6 +166,11 @@ public:
 		if(row > m_row)
 		{
 			throw(Exception("Invalid Row index"));
+		}
+		size_t index = (row*m_col)+col;
+		if(index > m_row*m_col)
+		{		
+			throw(Exception("Array Index Out of Bounds"));
 		}
 		return m_array[(row*m_col)+col];
 	}
