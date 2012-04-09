@@ -1,3 +1,6 @@
 [submodule "console"]
 	path = console
 	url = git@github.com:robopanda333/console.git
+[submodule "Alchemy"]
+	path = Alchemy
+	url = git@github.com:robopanda333/Alchemy.git
