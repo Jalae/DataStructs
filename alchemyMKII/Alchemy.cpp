@@ -50,11 +50,16 @@ size_t Alchemy::NewShape(size_t MAX)
 void Alchemy::DrawStatus()
 {
 	std::cout<<"\n\t\tYour Health is now: " << health
-		<< "To Discard the shape Enter 'XX'. \n To place a piece type the  " << SOMTHING ELSE; 
+		<< "To Discard the shape Enter 'XX'. \n To place a piece type the coordinate(ie 'A3')\n>"; 
 }
 
 bool Alchemy::BoardFilled()
 {
+	bool filled = true;
+	for(int i(0); i < board.getColumn() && filled; i++)
+		for(int j(0); j < board.getRow() && filled; j++)
+			filled = board[i][j].Touched();
+	return filled;
 }
 
 void Alchemy::start()
