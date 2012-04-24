@@ -4,7 +4,8 @@
 *Date Created:	2012/04/12
 *Modifed:		
 ******************************************************************************/
-
+#define _UNICODE
+#define UNICODE
 #include <iostream>
 #include <windows.h>
 
@@ -14,12 +15,13 @@ class Cell
 	size_t m_shape;
 	size_t m_color;
 public:
-	Cell(size_t shape = 0, size_t color = 0):m_touched(false),m_shape(0),m_color(0)
+	Cell(size_t shape = 0, size_t color = 0):m_touched(false),m_shape(shape),m_color(color)
 	{}
 	
-	void Touch()
+	Cell & Touch()
 	{
 		m_touched = true;
+		return *this;
 	}
 	
 	bool Touched() const
@@ -44,20 +46,34 @@ public:
 	void Draw() const
 	{ //this handles changing the color and shape based on its' members
 		_CONSOLE_SCREEN_BUFFER_INFO t;
-		HANDLE st(GetStdHandle(STD_OUTPUT_HANDLE));
+		HANDLE st = GetStdHandle(STD_OUTPUT_HANDLE);
 		GetConsoleScreenBufferInfo(st, &t);
-		if(m_touched)//change the colors
-			SetConsoleTextAttribute(st, m_color|BACKGROUND_BLUE );
-		else
-			SetConsoleTextAttribute(st, m_color);
 
-		if(m_shape)
+		if(m_touched)
+			SetConsoleTextAttribute(st, m_color+1 | BACKGROUND_BLUE | BACKGROUND_INTENSITY);
+		else
+		SetConsoleTextAttribute(st, m_color+1);
+
+		if(m_shape==1 && m_color==1)//wild
 		{
-			std::cout << (char)(m_shape+223);
+			SetConsoleTextAttribute(st, 15 | BACKGROUND_BLUE | BACKGROUND_INTENSITY);
+			wchar_t t[] = {223,0};
+			DWORD x;
+			WriteConsoleW(st, t, 1, &x, NULL);
 		}
 		else
 		{
-			std::cout << " ";
+			if(m_shape)
+			{
+				wchar_t t[] = {m_shape+223,0};
+				DWORD x;
+				WriteConsoleW(st, t, 1, &x, NULL);
+			}
+			else
+			{
+				DWORD x;
+				WriteConsoleW(st, " ", 1, &x, NULL);
+			}
 		}
 		//change them back
 		SetConsoleTextAttribute(st,t.wAttributes);
@@ -65,14 +81,21 @@ public:
 
 	bool Neighborable(Cell const & C)
 	{
-		if(C.m_shape == 1 || m_shape == 1)
+		if(m_shape == 0)//im empty
+			return true;
+		if((C.m_shape == 1) && (C.m_color == 1 ))
 		{
 			return true;
 		}
-		if(C.m_color == m_color || C.m_shape == m_shape)
+		if((m_shape == 1) && (m_color == 1 ))
 		{
 			return true;
 		}
-		return false;
+
+		if(C.m_color == m_color || C.m_shape == m_shape)//we are friends
+		{
+			return true;
+		}
+		return false;//nope
 	}
 };
