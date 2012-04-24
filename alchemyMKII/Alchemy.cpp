@@ -147,7 +147,7 @@ bool Alchemy::Placeable(int r, int c, Cell & t)
 		if(!board[r][c-1].Neighborable(t))
 			return false;
 		else
-			touched += board[r][c-1].Touched();
+			touched |= board[r][c-1].Touched();
 	}
 	//check up, if exists
 	if(r>0)
@@ -155,7 +155,7 @@ bool Alchemy::Placeable(int r, int c, Cell & t)
 		if(!board[r-1][c].Neighborable(t))
 			return false;
 		else
-			touched += board[r-1][c].Touched();
+			touched |= board[r-1][c].Touched();
 	}
 	//check right, if right exists
 	if(c<(board.getColumn()-1))
@@ -163,7 +163,7 @@ bool Alchemy::Placeable(int r, int c, Cell & t)
 		if(!board[r][c+1].Neighborable(t))
 			return false;
 		else
-			touched += board[r][c+1].Touched();
+			touched |= board[r][c+1].Touched();
 	}
 	//check down, if exists
 	if(r<(board.getRow()-1))
@@ -171,7 +171,7 @@ bool Alchemy::Placeable(int r, int c, Cell & t)
 		if(!board[r+1][c].Neighborable(t))
 			return false;
 		else
-			touched += board[r][c+1].Touched();
+			touched |= board[r+1][c].Touched();
 	}
 	//we have to touch /something/
 	if(!touched)
@@ -202,7 +202,19 @@ void Alchemy::start()
 					return;
 			}while(!Place(r, c, temp));
 		}while(!BoardFilled() && health>0);
-		difficulty++;
+		
+		if(health == 0)
+		{
+			std::cout << "\n\n\t\t\tGAME OVER!\n\n\t\t\tPress Enter to play again.\n";
+			std::cin.get();
+			for(int i(0); i < board.getRow(); i++)
+				for(int j(0); j < board.getColumn(); j++)
+					board[i][j].Reset();
+			health = MAX_HEALTH;
+
+		}
+		else
+			difficulty++;
 	}
 
 
