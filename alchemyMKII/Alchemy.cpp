@@ -2,13 +2,20 @@
 *Author:		Kehnin Dyer
 *File name:		Alchemy.cpp
 *Date Created:	2012/04/12
-*Modifed:		
+*Modifed:		2012/04/23 finished
 ******************************************************************************/
 
 #include "Alchemy.h"
 #include <iostream>
 
 #include <random>
+
+Alchemy & Alchemy::operator=(Alchemy & a)
+{return *this;}
+Alchemy::Alchemy(Alchemy const &)
+{}
+Alchemy::~Alchemy()
+{}
 
 Alchemy::Alchemy(unsigned int SEED):board(8,9), health(MAX_HEALTH), difficulty(STARTING_DIFFICULTY)
 {
@@ -52,7 +59,9 @@ void Alchemy::DrawStatus(Cell & temp)
 	std::cout<<"\n\t\tYour Health is now: " << health
 		<<"\n\t\tThe shape is :";
 	temp.Draw();
-	std::cout << "\nTo Discard the shape Enter 'XX'. \nTo Exit at anytime type 'Exit'\n To place a piece type the coordinate(ie 'A3')\n>"; 
+	std::cout << "\nTo Discard the shape Enter 'XX'."
+		<< "\nTo Exit at anytime type 'Exit'"
+		<< "\n To place a piece type the coordinate(ie 'A3')\n>"; 
 }
 
 bool Alchemy::BoardFilled()
@@ -80,7 +89,6 @@ bool Alchemy::GetInput(size_t & r, size_t & c)
 	c = (in[0]|0x60) - 'a';
 	r = in[1] - '1';
 	return false;
-
 }
 
 bool Alchemy::Place(int r, int c, Cell & t)
@@ -105,6 +113,7 @@ bool Alchemy::Place(int r, int c, Cell & t)
 	}
 	return false;
 }
+
 void Alchemy::CheckClear(int r, int c)
 {
 	bool cleared = true;
@@ -214,9 +223,7 @@ void Alchemy::start()
 
 		}
 		else
-			difficulty++;
+			difficulty = (difficulty<MAX_DIFFICULTY)?difficulty+1:MAX_DIFFICULTY;
 	}
-
-
 }
 
