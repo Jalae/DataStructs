@@ -63,7 +63,7 @@ void FreeCell::StackMove(int num, char src, char des)
 	if(!PlayField.MoveStack(src, num, t) || (!PlayField.CheckPlacement(des, t.Peek())))
 	{//we failed to get any stack. or the move is invalid
 		PlayField.AddStack(src, t); //put her back
-		std::cout << "   Invalid Move";
+		std::cout << "Invalid Move: Macro moves can only work if you could make the move otherwise.";
 		std::cin.ignore();
 		return;
 	}
@@ -102,9 +102,6 @@ void FreeCell::CardMove(char src, char des)
 		}
 		//either the des was invalid, or the move failed.
 		PlayField.AddCard(src, temp);
-		std::cout << "   Invalid Move";
-		std::cin.ignore();
-		return;
 	}
 	else
 	if(src>='1' && (src<=('1'+NUM_CELLS)))
@@ -135,11 +132,25 @@ void FreeCell::CardMove(char src, char des)
 			}
 		}
 		freecells.MoveIn(temp);
-		std::cout << "   Invalid Move";
-		std::cin.ignore();
-		return;
+	}//adding some helper tips on invalid inputs
+	std::cout << "Invalid Move:";
+	switch(rand()%6)
+	{
+		case 0: std::cout << " You cannot Move from a Foundation.";
+			break;
+		case 1:  std::cout <<" You win by Collecting all cards in the Foundations.";
+			break;
+		case 2:	std::cout << " You can macro move by indicating the number of cards first (4ae)";
+			break;
+		case 3: std::cout << " Valid moves are from somewhere to elsewhere, ie. from a to 8 (a8)";
+			break;
+		case 4: std::cout << " When Moving to a Freecell all the numbers are treated the same.";
+			break;
+		case 5:	std::cout << " Cards can be stacked Alternating Colors in Decending order.";
+		default:
+			break;
 	}
-	std::cout << "   Invalid Move";
+
 	std::cin.ignore();
 	return;
 }
