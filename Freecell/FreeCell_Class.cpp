@@ -50,11 +50,11 @@ void FreeCell::StackMove(int num, char src, char des)
 	max = max + (NUM_CELLS - freecells.GetCellsFilled())+1;
 	num = ((num<=max)?(num):(max));
 	Stack_list<Card *> t;
-	if(!(src>='a' && src<=('a'+NUM_CASCADES)))
+	if(!(src>='a' && src<('a'+NUM_CASCADES)))
 	{
 		return;//if it isn't to 
 	}
-	if(!(des>='a' && des<=('a'+NUM_CASCADES)))
+	if(!(des>='a' && des<('a'+NUM_CASCADES)))
 	{	//and from a cascade it isn't valid.
 		return;
 	}
@@ -74,11 +74,11 @@ void FreeCell::StackMove(int num, char src, char des)
 void FreeCell::CardMove(char src, char des)
 {
 	Card * temp;
-	if(src>='a' && src<=('a'+NUM_CASCADES))
+	if(src>='a' && src<('a'+NUM_CASCADES))
 	{//moving from a cascade
 		src = src - 'a';
 		temp = PlayField.MoveCard(src);
-		if(des>='a' && des<=('a'+NUM_CASCADES))
+		if(des>='a' && des<('a'+NUM_CASCADES))
 		{//to a cascade
 			des = des - 'a';
 			if(PlayField.CheckPlacement(des,temp))
@@ -112,7 +112,7 @@ void FreeCell::CardMove(char src, char des)
 		src = src - '1';
 		temp = freecells.MoveOut(src);
 
-		if(des>='a' && des<=('a'+NUM_CASCADES))
+		if(des>='a' && des<('a'+NUM_CASCADES))
 		{//to a cascade
 			des = des - 'a';
 			if(PlayField.CheckPlacement(des,temp))
