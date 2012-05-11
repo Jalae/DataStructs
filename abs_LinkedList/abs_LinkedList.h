@@ -1,34 +1,38 @@
-#pragma once
-
-#include "Node.h"
-
-
 /******************************************************************************
-*
-*	bool isEmpty()																X
-*		ñ does the list have any elements in it?
-*	T & First()																	X
-*		ñ return a const reference to the first element.
-*	T & Last()																	X
-*		ñ return a const reference to the last element.
-*	void Prepend(T const &)														X
-*		ñ add an item to the front of the list.
-*	void Append(T const &)														X
-*		ñ add an item to the end of the list.
-*	void Purge()																X
-*		ñ remove all items from the list.
-*		  Throws and exception if there is no match
-*	void Extract(T const &)
-*		ñ removes the first item that matches the passed argument from the list.
-*		  Throws and exception if there is no match
-*	void InsertAfter(T const & d, T const & i)
-*		ñ insert a data item d after the first instance i found.
-*		  Throws and exception if there is no match
-*	InsertBefore(T const & d, T const & i)
-*		ñ insert a data item d before the first instance i found.
-*		  Throws and exception if there is no match
+*Author:		Kehnin Dyer
+*File name:		abs_LinkedList.h
+*Date Created:	2012/05/03
+*Modifed:		2012/04/04 
 ******************************************************************************/
 
+
+#pragma once
+#include "Node.h"
+/******************************************************************************
+*
+*	bool isEmpty()
+*		ÅEdoes the list have any elements in it?
+*	T & First()
+*		ÅEreturn a const reference to the first element.
+*	T & Last()
+*		ÅEreturn a const reference to the last element.
+*	void Prepend(T const &)
+*		ÅEadd an item to the front of the list.
+*	void Append(T const &)
+*		ÅEadd an item to the end of the list.
+*	void Purge()
+*		ÅEremove all items from the list.
+*		  Throws and exception if there is no match
+*	void Extract(T const &)
+*		ÅEremoves the first item that matches the passed argument from the list.
+*		  Throws and exception if there is no match
+*	void InsertAfter(T const & d, T const & i)
+*		ÅEinsert a data item d after the first instance i found.
+*		  Throws and exception if there is no match
+*	InsertBefore(T const & d, T const & i)
+*		ÅEinsert a data item d before the first instance i found.
+*		  Throws and exception if there is no match
+******************************************************************************/
 template <typename T>
 class abs_LinkedList
 {
@@ -37,6 +41,63 @@ protected:
 	Node<T> * Tail;
 
 public:
+	class Iterator
+	{
+	protected:
+		Node<T>* cur;
+	public:
+		Iterator()
+		{}
+		virtual ~Iterator()
+		{
+			cur = nullptr;
+		}
+		T current()
+		{
+			if(cur)
+				return cur->Data;
+			else
+				throw("No Current Data found at iterator");
+		}
+		virtual void Next() = 0;
+		virtual bool End()
+		{
+			return cur == nullptr;
+		}
+	};
+	class fwdIterator:public Iterator
+	{
+	private:
+
+	public:
+		fwdIterator()
+		{}
+		fwdIterator(abs_LinkedList<T> & t)
+		{
+			cur = t.Head;
+		}
+		void Next()
+		{
+			if(!End())
+				cur = cur->Next;
+		}
+	};
+	class bkwIterator:public Iterator
+	{
+	private:
+		bkwIterator()
+		{}
+	public:
+		bkwIterator(abs_LinkedList & t)
+		{
+			cur = t.Tail;
+		}
+		void Next()
+		{
+			if(!End())
+				cur = cur->Previous;
+		}
+	};
 
 	 abs_LinkedList():Head(nullptr), Tail(nullptr)
 	{
