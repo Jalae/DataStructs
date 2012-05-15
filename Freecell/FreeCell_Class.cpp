@@ -134,7 +134,7 @@ void FreeCell::CardMove(char src, char des)
 		freecells.MoveIn(temp);
 	}//adding some helper tips on invalid inputs
 	std::cout << "Invalid Move:";
-	switch(rand()%6)
+	switch(rand()%6)//adding a comment to test new git config
 	{
 		case 0: std::cout << " You cannot Move from a Foundation.";
 			break;
