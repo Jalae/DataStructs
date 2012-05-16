@@ -47,6 +47,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Queue_list", "Queue_list\Qu
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Freecell", "Freecell\Freecell.vcxproj", "{23A74E77-0A63-4450-A373-53146E26C410}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BinarySearchTree", "BinarySearchTree\BinarySearchTree.vcxproj", "{23A19ED5-35C3-4C41-8140-737E313C087E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -113,6 +115,10 @@ Global
 		{23A74E77-0A63-4450-A373-53146E26C410}.Debug|Win32.Build.0 = Debug|Win32
 		{23A74E77-0A63-4450-A373-53146E26C410}.Release|Win32.ActiveCfg = Release|Win32
 		{23A74E77-0A63-4450-A373-53146E26C410}.Release|Win32.Build.0 = Release|Win32
+		{23A19ED5-35C3-4C41-8140-737E313C087E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{23A19ED5-35C3-4C41-8140-737E313C087E}.Debug|Win32.Build.0 = Debug|Win32
+		{23A19ED5-35C3-4C41-8140-737E313C087E}.Release|Win32.ActiveCfg = Release|Win32
+		{23A19ED5-35C3-4C41-8140-737E313C087E}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

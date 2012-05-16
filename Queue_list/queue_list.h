@@ -50,7 +50,8 @@ public:
 	Queue_list & operator=(Queue_list const & rhs)
 	{
 		ary = rhs.ary;//linkedlist<> handles the deep copy for us;
-		num = rhs.top;
+		num = rhs.num;
+		return *this;
 	}
 
 	void Enqueue(T const & d)
